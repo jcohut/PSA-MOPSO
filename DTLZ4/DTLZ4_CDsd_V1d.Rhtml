@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PS_MOPSO tests</title>
+</head>
+<body>
+  <p> Testing <a href="https://cran.r-project.org/web/packages/mopsocd/index.html">mopsocd</a>(Multi-objective Particle Swarm Optimization with Crowding Distance) and mopsopsa algorithm v.1<p>
+  <p> Here are results of running mopsocd and mopsopsa_v1 on testing functions.</p>
+  <p>Load algorithms, test functions and utilities:</p>
+<!--begin.rcode
+  source('../mopsocd.R')
+  source('../mopsocds.R')
+  source('../moea.test.dtlz4.R')
+  source('../mopsopsa_v1.R')
+ end.rcode-->
+ <p>Set number of points to be generated for True Pareto Front:</p>
+ <!--begin.rcode
+   pfpoints <- 10000
+  end.rcode-->
+  <p>Visualizations of solutions MOPSOCD vs MOPSOPSA_V1</p>
+  <p>Color conventions: Black = True Pareto front, Green = Nondominated solutions, Red = All stored solutions</p>
+  <p>DTLZ4 Test Functions</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+    d <- 11
+    s1 <- mopsocds(dtlz4_2, varcnt=d, fncnt=2, lowerbound=rep(0, d), upperbound=rep(1,d), opt=0)
+    s2 <- mopsopsa_v1(dtlz4_2, varcnt=d, fncnt=2, lowerbound=rep(0, d), upperbound=rep(1,d), opt=0)
+    draw_n(s1, s2, dtlz4_2front, pfpoints)
+
+    d <- 12
+    s1 <- mopsocds(dtlz4_3, varcnt=d, fncnt=3, lowerbound=rep(0, d), upperbound=rep(1,d), opt=0)
+    s2 <- mopsopsa_v1(dtlz4_3, varcnt=d, fncnt=3, lowerbound=rep(0, d), upperbound=rep(1,d), opt=0)
+    draw_n(s1, s2, dtlz4_3front, pfpoints)
+end.rcode-->
+  <p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 2 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+n <- 20
+obj <- 2
+mat <- perf_test(n, test_functions2D, test_functions_fronts2D, obj=2, d=11, pfpoints, alg_func=c(mopsocds, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_2obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 3 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 3
+mat <- perf_test(n, test_functions3D, test_functions_fronts3D, obj=3, d=12, pfpoints, alg_func=c(mopsocds, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_3obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 4 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 4
+mat <- perf_test(n, test_functions4D, test_functions_fronts4D, obj=4, d=13, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_4obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 5 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 5
+mat <- perf_test(n, test_functions5D, test_functions_fronts5D, obj=5, d=14, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_5obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 6 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 6
+mat <- perf_test(n, test_functions6D, test_functions_fronts6D, obj=6, d=15, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_6obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 7 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 7
+mat <- perf_test(n, test_functions7D, test_functions_fronts7D, obj=7, d=16, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_7obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 8 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 8
+mat <- perf_test(n, test_functions8D, test_functions_fronts8D, obj=8, d=17, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_8obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 10 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 10
+mat <- perf_test(n, test_functions10D, test_functions_fronts10D, obj=10, d=19, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_10obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 12 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 12
+mat <- perf_test(n, test_functions12D, test_functions_fronts12D, obj=12, d=21, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_12obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 15 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 15
+mat <- perf_test(n, test_functions15D, test_functions_fronts15D, obj=15, d=24, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_15obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 16 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 16
+mat <- perf_test(n, test_functions16D, test_functions_fronts16D, obj=16, d=25, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_16obj <- as.data.frame(mat)
+end.rcode-->
+<p>Boxplots of results from 20 independent runs of MOPSOCD and MOPSOPSA_V1 on test functions for 20 objectives:</p>
+<!--begin.rcode fig.width=18,fig.height=9, fig.path="figure/v2"
+obj <- 20
+mat <- perf_test(n, test_functions20D, test_functions_fronts20D, obj=20, d=29, pfpoints, alg_func=c(mopsocd, mopsopsa_v1))
+titles = c('DTLZ4-MOPSOCD', 'DTLZ4-MOPSOPSA_V1')
+perf_boxplots(n, mat, titles)
+mat_20obj <- as.data.frame(mat)
+end.rcode-->
+</body>
+</html>
